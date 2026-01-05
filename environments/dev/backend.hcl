@@ -1,4 +1,9 @@
-resource_group_name  = "rg-terraform-state"
-storage_account_name = "stterraformstatedev"
-container_name       = "tfstate"
-key                  = "logging-dev.tfstate"
+########################################
+# DEVELOPMENT ENVIRONMENT - Backend Config
+# File: environments/dev/backend.hcl
+########################################
+
+resource_group_name  = "rg-edwproj-logging-dev"
+storage_account_name = "edwprojloggingsadev"
+container_name       = "edw-logging-tfstate-cont"
+key                  = "terraform.tfstate"

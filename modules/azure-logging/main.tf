@@ -4,7 +4,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.0"
+      version = "~> 3.96"
     }
   }
 }
@@ -248,6 +248,12 @@ resource "azurerm_storage_account" "logs" {
     # Versioning
     versioning_enabled = var.enable_blob_versioning
   }
+
+  lifecycle {
+    ignore_changes = [
+      static_website
+    ]
+  }
   
   tags = merge(
     local.module_tags,
@@ -261,7 +267,7 @@ resource "azurerm_storage_account" "logs" {
 resource "azurerm_storage_container" "diagnostic_logs" {
   count                 = var.create_storage_account ? 1 : 0
   name                  = "diagnostic-logs"
-  storage_account_id    = azurerm_storage_account.logs[0].id
+  storage_account_name    = azurerm_storage_account.logs[0].name
   container_access_type = "private"
 }
 
@@ -269,7 +275,7 @@ resource "azurerm_storage_container" "diagnostic_logs" {
 resource "azurerm_storage_container" "archived_logs" {
   count                 = var.create_storage_account ? 1 : 0
   name                  = "archived-logs"
-  storage_account_id    = azurerm_storage_account.logs[0].id
+  storage_account_name    = azurerm_storage_account.logs[0].name
   container_access_type = "private"
 }
 

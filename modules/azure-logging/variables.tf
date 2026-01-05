@@ -315,7 +315,7 @@ variable "common_tags" {
   description = "Common tags to apply to all resources created by this module"
   type        = map(string)
   default = {
-    ManagedBy = "Terraform"
+    ManagedBy = "Thivagar"
   }
   
   validation {
